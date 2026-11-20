@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f2e9">
+    <meta name="description" content="Découvrez la boutique de la coopérative Rihal Souss.">
+    <title>Rihal Souss — Boutique</title>
+    <link rel="icon" href="assets/logo.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="js/config.js"></script>
+    <script defer src="js/integrations.js"></script>
+    <script defer src="js/store.js"></script>
+    <script defer src="js/app.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#accueil" aria-label="Rihal Souss, accueil">
+        <img src="assets/logo.png" alt="" width="44" height="44">
+        <span>RIHAL <strong>SOUSS</strong></span>
+      </a>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="#accueil">Accueil</a>
+        <a href="#boutique">Boutique</a>
+        <a id="whatsapp-button" class="whatsapp-link" href="#" aria-disabled="true">WhatsApp <small>numéro à configurer</small></a>
+        <a class="cart-link" href="#panier" aria-label="Voir le panier">
+          Panier <span id="cart-count" class="cart-count">0</span>
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="screen-accueil" class="screen hero">
+        <div class="hero-copy">
+          <p class="eyebrow">La boutique Rihal Souss</p>
+          <h1>De bons produits.<br><em>Tout simplement.</em></h1>
+          <p class="hero-intro">Parcourez la sélection de la coopérative et commandez en quelques étapes.</p>
+          <a class="button button-dark" href="#boutique">Découvrir la boutique <span aria-hidden="true">↗</span></a>
+          <p class="payment-note"><span aria-hidden="true">◉</span> Paiement à la livraison</p>
+        </div>
+        <div class="hero-art" aria-label="Illustration décorative d'un pot d'amlou" role="img">
+          <div class="sun-disc"></div>
+          <div class="leaf leaf-one"></div>
+          <div class="leaf leaf-two"></div>
+          <div class="jar">
+            <div class="jar-lid"></div>
+            <div class="jar-label"><span>RIHAL</span><strong>AMLOU</strong><small>ILLUSTRATION</small></div>
+          </div>
+          <span class="art-caption">Une sélection à découvrir</span>
+        </div>
+      </section>
+
+      <section class="service-strip" aria-label="Informations de commande">
+        <div><span class="service-icon" aria-hidden="true">01</span><span><strong>Choisissez</strong><small>Parcourez les produits</small></span></div>
+        <div><span class="service-icon" aria-hidden="true">02</span><span><strong>Commandez</strong><small>Renseignez vos coordonnées</small></span></div>
+        <div><span class="service-icon" aria-hidden="true">03</span><span><strong>Réglez à la livraison</strong><small>Paiement à la réception</small></span></div>
+      </section>
+
+      <section id="screen-boutique" class="screen shop-section" hidden>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">La sélection</p>
+            <h2>La boutique</h2>
+          </div>
+          <p class="catalog-note">Catalogue en cours d’enrichissement</p>
+        </div>
+        <div class="shop-toolbar">
+          <div class="filters" role="group" aria-label="Filtrer par catégorie">
+            <button class="filter-button is-active" type="button" data-category="Toutes" aria-pressed="true">Tout voir</button>
+            <button class="filter-button" type="button" data-category="Alimentaire" aria-pressed="false">Alimentaire</button>
+            <button class="filter-button" type="button" data-category="Cosmétiques" aria-pressed="false">Cosmétiques</button>
+          </div>
+          <label class="search-box">
+            <span class="sr-only">Rechercher un produit</span>
+            <span aria-hidden="true">⌕</span>
+            <input id="product-search" type="search" placeholder="Rechercher" autocomplete="off">
+          </label>
+        </div>
+        <p id="catalog-disclosure" class="catalog-disclosure">Sélection basée sur les données produit actuellement disponibles. Description et visuel produit à compléter par la coopérative.</p>
+        <div id="product-grid" class="product-grid" aria-live="polite"></div>
+      </section>
+
+      <section id="screen-produit" class="screen detail-section" hidden>
+        <a class="back-link" href="#boutique">← Retour à la boutique</a>
+        <div class="detail-layout" id="product-detail"></div>
+      </section>
+
+      <section id="screen-panier" class="screen checkout-section" hidden>
+        <div class="section-heading">
+          <div><p class="eyebrow">Votre sélection</p><h2>Votre panier</h2></div>
+        </div>
+        <div id="cart-content"></div>
+      </section>
+
+      <section id="screen-commande" class="screen checkout-section" hidden>
+        <a class="back-link" href="#panier">← Retour au panier</a>
+        <div class="section-heading"><div><p class="eyebrow">Dernière étape</p><h2>Livraison</h2></div></div>
+        <div class="checkout-layout">
+          <form id="checkout-form" class="checkout-form">
+            <label for="customer-name">Nom complet</label>
+            <input id="customer-name" name="name" autocomplete="name" required>
+            <label for="customer-phone">Téléphone</label>
+            <input id="customer-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" pattern="[+]?[0-9 ()-]{8,20}" title="Saisissez un numéro de téléphone valide." required>
+            <label for="customer-city">Ville</label>
+            <input id="customer-city" name="city" autocomplete="address-level2" required>
+            <label for="customer-address">Adresse de livraison</label>
+            <textarea id="customer-address" name="address" autocomplete="street-address" rows="3" required></textarea>
+            <label class="consent-row" for="order-consent">
+              <input id="order-consent" name="consent" type="checkbox" required>
+              <span>J’accepte la transmission de mes coordonnées à la coopérative pour traiter cette commande.</span>
+            </label>
+            <div class="payment-card"><span aria-hidden="true">◉</span><div><strong>Paiement à la livraison</strong><small>Le paiement se fait à la réception de votre commande.</small></div></div>
+            <p id="checkout-notice" class="prototype-notice"></p>
+            <button class="button button-dark button-wide" type="submit">Confirmer ma commande</button>
+          </form>
+          <aside id="checkout-summary" class="order-summary" aria-label="Récapitulatif de commande"></aside>
+        </div>
+      </section>
+
+      <section id="screen-confirmation" class="screen confirmation-section" hidden>
+        <div class="confirmation-mark" aria-hidden="true">✓</div>
+        <p class="eyebrow">Récapitulatif</p>
+        <h2>Merci <span id="confirmation-name"></span></h2>
+        <p id="confirmation-copy" class="confirmation-copy"></p>
+        <div id="confirmation-summary" class="order-summary confirmation-summary"></div>
+        <p id="confirmation-notice" class="prototype-notice"></p>
+        <a class="button button-dark" href="#boutique">Retourner à la boutique</a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="brand brand-footer" href="#accueil"><img src="assets/logo.png" alt="" width="36" height="36"><span>RIHAL <strong>SOUSS</strong></span></a>
+      <p>Coopérative Rihal Souss</p>
+      <p class="footer-payment">Paiement à la livraison</p>
+    </footer>
+    <iframe id="sheet-submit-frame" name="sheet-submit-frame" title="Envoi sécurisé de la commande" hidden></iframe>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
