@@ -166,6 +166,15 @@
         const product = productById(entry.id);
         return '<div class="summary-line"><span>' + escapeHtml(product.name) + ' × ' + entry.quantity + '</span><span>' + formatPrice(product.price * entry.quantity) + '</span></div>';
       }).join('');
+    const endpoint = getSheetEndpoint();
+    const notice = document.getElementById('checkout-notice');
+    if (endpoint === null) {
+      notice.textContent = 'L’adresse Google Sheets configurée est invalide. La commande ne peut pas être envoyée.';
+    } else if (endpoint) {
+      notice.textContent = 'Vos coordonnées seront transmises au Google Sheet privé de la coopérative pour traiter la commande.';
+    } else {
+      notice.textContent = 'Google Sheets n’est pas encore configuré. Cette commande restera une démonstration et ne sera pas envoyée.';
+    }
   }
 
   function submitOrderToSheet(endpoint, order) {
@@ -365,7 +374,8 @@
       finishOrder(order, true);
     }).catch(function (error) {
       console.error('Échec de l’envoi vers Google Sheets.', error);
-      showToast('Votre commande n’a pas pu être transmise. Vos informations restent dans le formulaire. Réessayez ou contactez-nous sur WhatsApp.');
+      document.getElementById('checkout-notice').textContent =
+        'Votre commande n’a pas pu être transmise. Vos informations restent dans le formulaire. Réessayez ou contactez-nous sur WhatsApp.';
     }).finally(function () {
       isSubmitting = false;
       submitButton.disabled = false;
