@@ -234,6 +234,7 @@
       'Nous avons bien reçu votre commande. Notre équipe vous appellera prochainement au numéro indiqué pour confirmer les détails de la livraison.';
     document.getElementById('confirmation-notice').textContent =
       'Le paiement se fera à la livraison. Gardez votre téléphone à portée pour que la coopérative puisse vous joindre.';
+    showToast('Commande confirmée. Retour à l’accueil.');
     window.location.hash = 'accueil';
   }
 

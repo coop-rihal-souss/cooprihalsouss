@@ -1,5 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
 const store = require('../js/store.js');
 
 test('catalogue uses the recorded product name and price', () => {
@@ -21,4 +23,13 @@ test('cart normalization drops unknown products and invalid quantities', () => {
 test('subtotal multiplies the listed price by valid quantities only', () => {
   assert.equal(store.calculateSubtotal([{ id: 'amlou-amandes', quantity: 3 }]), 420);
   assert.equal(store.calculateSubtotal([{ id: 'unknown', quantity: 3 }]), 0);
+});
+
+test('successful order confirmation redirects to the home screen', () => {
+  const appSource = fs.readFileSync(path.join(__dirname, '../js/app.js'), 'utf8');
+  const finishOrderMatch = appSource.match(/function finishOrder\(order\) \{([\s\S]*?)\n  \}/);
+
+  assert.ok(finishOrderMatch, 'finishOrder should be implemented');
+  assert.match(finishOrderMatch[1], /window\.location\.hash = 'accueil';/);
+  assert.doesNotMatch(finishOrderMatch[1], /window\.location\.hash = 'confirmation';/);
 });
