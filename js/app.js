@@ -173,7 +173,7 @@
     } else if (endpoint) {
       notice.textContent = 'Vos coordonnées seront transmises au Google Sheet privé de la coopérative pour traiter la commande.';
     } else {
-      notice.textContent = 'Google Sheets n’est pas encore configuré. Cette commande restera une démonstration et ne sera pas envoyée.';
+      notice.textContent = 'Google Sheets n’est pas encore configuré. La commande ne peut pas être envoyée.';
     }
   }
 
@@ -225,18 +225,16 @@
     });
   }
 
-  function finishOrder(order, sentToSheet) {
+  function finishOrder(order) {
     lastOrder = order;
     cart = [];
     saveCart();
     updateCartCount();
-    document.getElementById('confirmation-copy').textContent = sentToSheet
-      ? 'Nous avons bien reçu votre commande. Notre équipe vous appellera prochainement au numéro indiqué pour confirmer les détails de la livraison.'
-      : 'Votre commande de démonstration est prête.';
-    document.getElementById('confirmation-notice').textContent = sentToSheet
-      ? 'Le paiement se fera à la livraison. Gardez votre téléphone à portée pour que la coopérative puisse vous joindre.'
-      : 'Aucune commande n’a été envoyée. Configurez le Google Sheet pour recevoir les demandes.';
-    window.location.hash = 'confirmation';
+    document.getElementById('confirmation-copy').textContent =
+      'Nous avons bien reçu votre commande. Notre équipe vous appellera prochainement au numéro indiqué pour confirmer les détails de la livraison.';
+    document.getElementById('confirmation-notice').textContent =
+      'Le paiement se fera à la livraison. Gardez votre téléphone à portée pour que la coopérative puisse vous joindre.';
+    window.location.hash = 'accueil';
   }
 
   function showScreen(name) {
@@ -346,6 +344,10 @@
       showToast('L’adresse Google Sheets configurée est invalide.');
       return;
     }
+    if (!endpoint) {
+      showToast('Google Sheets n’est pas encore configuré. La commande ne peut pas être envoyée.');
+      return;
+    }
     const consent = document.getElementById('order-consent');
     if (!consent.checked) return;
     const formData = new FormData(event.currentTarget);
@@ -364,14 +366,8 @@
     const submitButton = event.currentTarget.querySelector('[type="submit"]');
     isSubmitting = true;
     submitButton.disabled = true;
-    if (!endpoint) {
-      isSubmitting = false;
-      submitButton.disabled = false;
-      finishOrder(order, false);
-      return;
-    }
     submitOrderToSheet(endpoint, order).then(function () {
-      finishOrder(order, true);
+      finishOrder(order);
     }).catch(function (error) {
       console.error('Échec de l’envoi vers Google Sheets.', error);
       document.getElementById('checkout-notice').textContent =
