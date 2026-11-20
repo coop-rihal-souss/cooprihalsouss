@@ -184,7 +184,12 @@ h1, h2, h3, p { margin-top: 0; }
 .site-footer p { margin: 0; }
 .brand-footer { color: var(--ink); font-size: 12px; }
 .brand-footer img { width: 34px; height: 34px; }
-.toast { position: fixed; right: 18px; bottom: 18px; z-index: 5; max-width: calc(100vw - 36px); padding: 12px 16px; transform: translateY(20px); opacity: 0; border-radius: 3px; background: var(--green-dark); color: white; font-size: 12px; pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
+.whatsapp-float { position: fixed; right: 22px; bottom: 22px; z-index: 6; width: 58px; height: 58px; display: grid; place-items: center; border-radius: 50%; background: #25d366; color: white; box-shadow: 0 5px 18px #193e3040; transition: background .2s ease, transform .2s ease; }
+.whatsapp-float:hover { transform: translateY(-3px); background: #1fb85a; }
+.whatsapp-float:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.whatsapp-float[aria-disabled="true"] { cursor: not-allowed; opacity: .6; }
+.whatsapp-float svg { width: 31px; height: 31px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.65; }
+.toast { position: fixed; right: 18px; bottom: 92px; z-index: 5; max-width: calc(100vw - 36px); padding: 12px 16px; transform: translateY(20px); opacity: 0; border-radius: 3px; background: var(--green-dark); color: white; font-size: 12px; pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
 .toast.is-visible { transform: translateY(0); opacity: 1; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
@@ -229,6 +234,8 @@ h1, h2, h3, p { margin-top: 0; }
   .remove-button { grid-column: 3; grid-row: 1; }
   .quantity-control { grid-column: 3; grid-row: 2; }
   .site-footer { align-items: flex-start; flex-direction: column; padding: 22px 6%; }
+  .whatsapp-float { right: 16px; bottom: 16px; width: 54px; height: 54px; }
+  .toast { right: 16px; bottom: 82px; max-width: calc(100vw - 32px); }
 }
 
 @media (max-width: 380px) {

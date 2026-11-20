@@ -48,14 +48,23 @@
   }
 
   function configureWhatsApp() {
-    const link = document.getElementById('whatsapp-button');
     const target = integrations.whatsappUrl(config.whatsappNumber);
-    if (target) {
+    const links = [
+      document.getElementById('whatsapp-button'),
+      document.getElementById('whatsapp-floating')
+    ];
+
+    links.forEach(function (link) {
+      if (!link || !target) return;
       link.href = target;
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
       link.setAttribute('aria-disabled', 'false');
-      link.innerHTML = 'WhatsApp <span aria-hidden="true">↗</span>';
+    });
+
+    const navigationLink = links[0];
+    if (navigationLink && target) {
+      navigationLink.innerHTML = 'WhatsApp <span aria-hidden="true">↗</span>';
     }
   }
 
@@ -222,10 +231,10 @@
     saveCart();
     updateCartCount();
     document.getElementById('confirmation-copy').textContent = sentToSheet
-      ? 'Votre commande a été transmise à la coopérative.'
+      ? 'Nous avons bien reçu votre commande. Notre équipe vous appellera prochainement au numéro indiqué pour confirmer les détails de la livraison.'
       : 'Votre commande de démonstration est prête.';
     document.getElementById('confirmation-notice').textContent = sentToSheet
-      ? 'Le paiement est prévu à la livraison. La coopérative pourra vous contacter au numéro indiqué.'
+      ? 'Le paiement se fera à la livraison. Gardez votre téléphone à portée pour que la coopérative puisse vous joindre.'
       : 'Aucune commande n’a été envoyée. Configurez le Google Sheet pour recevoir les demandes.';
     window.location.hash = 'confirmation';
   }
@@ -294,7 +303,7 @@
   });
 
   document.addEventListener('click', function (event) {
-    const whatsappLink = event.target.closest('#whatsapp-button');
+    const whatsappLink = event.target.closest('#whatsapp-button, #whatsapp-floating');
     if (whatsappLink && whatsappLink.getAttribute('aria-disabled') === 'true') {
       event.preventDefault();
       showToast('Configurez le numéro WhatsApp de la coopérative.');
@@ -365,8 +374,8 @@
       finishOrder(order, true);
     }).catch(function (error) {
       console.error('Échec de l’envoi vers Google Sheets.', error);
-      showToast(error.message);
-      document.getElementById('checkout-notice').textContent = error.message + ' Vos informations sont encore dans le formulaire.';
+      document.getElementById('checkout-notice').textContent =
+        'Votre commande n’a pas pu être transmise. Vos informations restent dans le formulaire. Réessayez ou contactez-nous sur WhatsApp.';
     }).finally(function () {
       isSubmitting = false;
       submitButton.disabled = false;

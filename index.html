@@ -121,10 +121,10 @@
         <div class="confirmation-mark" aria-hidden="true">✓</div>
         <p class="eyebrow">Récapitulatif</p>
         <h2>Merci <span id="confirmation-name"></span></h2>
-        <p id="confirmation-copy" class="confirmation-copy"></p>
+        <p id="confirmation-copy" class="confirmation-copy" role="status" aria-live="polite"></p>
         <div id="confirmation-summary" class="order-summary confirmation-summary"></div>
         <p id="confirmation-notice" class="prototype-notice"></p>
-        <a class="button button-dark" href="#boutique">Retourner à la boutique</a>
+        <a class="button button-dark" href="#accueil">Retour à l’accueil</a>
       </section>
     </main>
 
@@ -133,6 +133,12 @@
       <p>Coopérative Rihal Souss</p>
       <p class="footer-payment">Paiement à la livraison</p>
     </footer>
+    <a id="whatsapp-floating" class="whatsapp-float" href="#" target="_blank" rel="noopener noreferrer" aria-label="Contacter la coopérative sur WhatsApp" aria-disabled="true">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M20.2 11.6a8.2 8.2 0 0 1-12.1 7.2L4 20l1.3-4.1a8.2 8.2 0 1 1 14.9-4.3Z"></path>
+        <path d="M9 8.5c.2-.4.4-.5.7-.5h.5c.2 0 .4.1.5.4l.7 1.6c.1.2.1.4-.1.6l-.5.6c-.2.2-.2.4-.1.6.4.7.9 1.2 1.5 1.6.5.4 1 .7 1.5.8.2.1.4 0 .6-.2l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .4-.2 1-.7 1.4-.5.4-1.1.5-1.7.4-1-.2-2.2-.8-3.3-1.7-1.1-.9-2-2.1-2.4-3.2-.3-.8-.2-1.5.1-2.1.1-.2.3-.5.4-.6Z"></path>
+      </svg>
+    </a>
     <iframe id="sheet-submit-frame" name="sheet-submit-frame" title="Envoi sécurisé de la commande" hidden></iframe>
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
   </body>
